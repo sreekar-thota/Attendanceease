@@ -1,6 +1,6 @@
 # AttendEase — Student Permission Portal Redesign
 
-Live demo: <ADD VERCEL URL> | Repository: <ADD GITHUB URL>
+Live demo: <https://attendanceease.vercel.app/> | Repository: <https://github.com/sreekar-thota/Attendanceease/>
 
 **SRKR Engineering College (CSD & CSIT)**  
 A modern, accessible, and responsive student attendance-permission portal redesign. Built with **React 18**, **Vite**, **Tailwind CSS v4**, and **Lucide React**.
@@ -76,29 +76,6 @@ npm run preview
 ```
 
 ---
-
-## Deploying to Vercel
-
-The project is structured with zero-configuration build settings for Vercel.
-
-### Option A: Via Vercel Web Dashboard (Recommended)
-1. Push your repository to GitHub, GitLab, or Bitbucket.
-2. Sign in to [Vercel](https://vercel.com/) and click **"Add New Project"**.
-3. Import your repository.
-4. Vercel automatically detects **Vite**:
-   - **Framework Preset**: `Vite`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-5. Click **"Deploy"**. Your portal will be deployed with a live `.vercel.app` URL.
-
-### Option B: Via Vercel CLI
-```bash
-# Install Vercel CLI globally if not already installed
-npm install -g vercel
-
-# Deploy directly from workspace root
-vercel
-```
 
 ---
 
