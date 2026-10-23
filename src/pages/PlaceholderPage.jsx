@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, Bell, Award, User, Phone, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Clock, Bell, Award, User, Phone, ShieldCheck, Eye } from "lucide-react";
+import StatusPill from "../components/StatusPill";
 
 export default function PlaceholderPage({
   title,
@@ -94,7 +95,9 @@ export function NotificationsView() {
   );
 }
 
-export function HistoryView({ requests }) {
+export function HistoryView({ requests = [] }) {
+  const [selectedDetails, setSelectedDetails] = React.useState(null);
+
   return (
     <PlaceholderPage
       title="Permission History"
@@ -102,27 +105,144 @@ export function HistoryView({ requests }) {
       icon={Clock}
     >
       <div className="overflow-hidden rounded-2xl border border-[#ece4da] bg-white dark:border-[#33291f] dark:bg-[#1e1914]">
-        <table className="w-full text-left text-xs">
-          <thead className="border-b border-[#ece4da] bg-[#fbf8f4] text-[#6f675f] dark:border-[#33291f] dark:bg-[#14100d] dark:text-[#a79c91]">
-            <tr>
-              <th className="p-3.5">Date</th>
-              <th className="p-3.5">Subject</th>
-              <th className="p-3.5">Details</th>
-              <th className="p-3.5">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#ece4da] dark:divide-[#33291f]">
-            {requests.map((r) => (
-              <tr key={r.id}>
-                <td className="p-3.5 font-medium">{r.date} ({r.day})</td>
-                <td className="p-3.5 font-semibold text-[#1d1a17] dark:text-[#f6efe8]">{r.subject}</td>
-                <td className="p-3.5 text-[#6f675f] dark:text-[#a79c91]">{r.details}</td>
-                <td className="p-3.5 font-semibold">{r.status}</td>
+        {/* Desktop Table (>= 768px) */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="border-b border-[#ece4da] bg-[#fbf8f4] text-[#6f675f] dark:border-[#33291f] dark:bg-[#14100d] dark:text-[#a79c91]">
+              <tr>
+                <th className="p-3.5">Date</th>
+                <th className="p-3.5">Subject</th>
+                <th className="p-3.5">Details</th>
+                <th className="p-3.5">Periods</th>
+                <th className="p-3.5">Status</th>
+                <th className="p-3.5 text-right sr-only">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-[#ece4da] dark:divide-[#33291f]">
+              {requests.map((r) => (
+                <tr key={r.id} className="hover:bg-[#fbf8f4]/60 dark:hover:bg-[#26201b]/60 transition-colors">
+                  <td className="p-3.5 font-medium whitespace-nowrap">
+                    <span className="block font-semibold text-[#1d1a17] dark:text-[#f6efe8]">{r.date}</span>
+                    <span className="text-[11px] text-[#6f675f] dark:text-[#a79c91]">{r.day}</span>
+                  </td>
+                  <td className="p-3.5 font-semibold text-[#1d1a17] dark:text-[#f6efe8]">{r.subject}</td>
+                  <td className="p-3.5 text-[#6f675f] dark:text-[#a79c91] max-w-xs break-words">{r.details}</td>
+                  <td className="p-3.5 whitespace-nowrap font-medium text-[#1d1a17] dark:text-[#f6efe8]">
+                    <span className="inline-flex items-center rounded-md bg-[#f5efe7] dark:bg-[#2d1d12] px-2 py-0.5 text-xs font-semibold text-[#f26a0f]">
+                      {r.periods || 2} periods
+                    </span>
+                  </td>
+                  <td className="p-3.5 whitespace-nowrap">
+                    <StatusPill status={r.status} />
+                  </td>
+                  <td className="p-3.5 text-right whitespace-nowrap">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDetails(r)}
+                      className="inline-flex min-h-[36px] items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold text-[#f26a0f] hover:bg-[#fff5eb] dark:hover:bg-[#2d1d12]"
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                      <span>Details</span>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Stacked Cards (< 768px) */}
+        <div className="md:hidden divide-y divide-[#ece4da] dark:divide-[#33291f]">
+          {requests.map((r) => (
+            <div key={r.id} className="p-4 space-y-3">
+              <div className="flex items-start justify-between gap-2.5">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm text-[#1d1a17] dark:text-[#f6efe8]">{r.date} ({r.day})</span>
+                    <span className="inline-flex items-center rounded-md bg-[#f5efe7] dark:bg-[#2d1d12] px-2 py-0.5 text-[11px] font-semibold text-[#f26a0f]">
+                      {r.periods || 2} periods
+                    </span>
+                  </div>
+                  <h3 className="mt-1 font-heading text-base font-semibold text-[#1d1a17] dark:text-[#f6efe8] break-words">
+                    {r.subject}
+                  </h3>
+                </div>
+                <StatusPill status={r.status} />
+              </div>
+
+              <p className="rounded-lg bg-[#fbf8f4] dark:bg-[#14100d] p-2.5 text-xs text-[#6f675f] dark:text-[#a79c91] break-words whitespace-normal leading-relaxed">
+                {r.details}
+              </p>
+
+              <div className="flex items-center justify-between border-t border-[#ece4da]/60 dark:border-[#33291f]/60 pt-2 text-xs">
+                <span className="text-[#6f675f] dark:text-[#a79c91] text-[11px]">
+                  Submitted {r.ago || "Recently"}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedDetails(r)}
+                  className="inline-flex min-h-[44px] items-center gap-1.5 font-semibold text-[#f26a0f] hover:underline"
+                >
+                  <Eye className="h-4 w-4" />
+                  <span>View slip</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Details dialog modal */}
+      {selectedDetails && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="history-details-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
+        >
+          <div className="w-full max-w-md rounded-2xl border border-[#ece4da] bg-white p-6 shadow-xl dark:border-[#33291f] dark:bg-[#1e1914]">
+            <div className="flex items-center justify-between">
+              <h3 id="history-details-title" className="font-heading text-lg font-bold text-[#1d1a17] dark:text-[#f6efe8]">
+                Permission Slip Details
+              </h3>
+              <StatusPill status={selectedDetails.status} />
+            </div>
+
+            <div className="mt-4 space-y-3 text-sm">
+              <div className="rounded-xl bg-[#fbf8f4] p-3 dark:bg-[#14100d]">
+                <span className="text-xs text-[#6f675f] dark:text-[#a79c91]">Subject</span>
+                <p className="font-semibold text-[#1d1a17] dark:text-[#f6efe8]">{selectedDetails.subject}</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl bg-[#fbf8f4] p-3 dark:bg-[#14100d]">
+                  <span className="text-xs text-[#6f675f] dark:text-[#a79c91]">Date</span>
+                  <p className="font-semibold text-[#1d1a17] dark:text-[#f6efe8]">{selectedDetails.date} ({selectedDetails.day})</p>
+                </div>
+                <div className="rounded-xl bg-[#fbf8f4] p-3 dark:bg-[#14100d]">
+                  <span className="text-xs text-[#6f675f] dark:text-[#a79c91]">Duration</span>
+                  <p className="font-semibold text-[#1d1a17] dark:text-[#f6efe8]">{selectedDetails.periods || 2} periods</p>
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-[#fbf8f4] p-3 dark:bg-[#14100d]">
+                <span className="text-xs text-[#6f675f] dark:text-[#a79c91]">Reason / Details</span>
+                <p className="mt-1 text-sm text-[#1d1a17] dark:text-[#f6efe8] break-words">{selectedDetails.details}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setSelectedDetails(null)}
+                className="min-h-[44px] rounded-xl border border-[#ece4da] px-5 text-sm font-semibold text-[#1d1a17] hover:bg-[#fbf8f4] dark:border-[#33291f] dark:text-[#f6efe8] dark:hover:bg-[#2a231c]"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </PlaceholderPage>
   );
 }

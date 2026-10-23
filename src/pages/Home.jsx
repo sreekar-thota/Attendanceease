@@ -45,7 +45,7 @@ export default function Home({
       {/* 2. Stat Summary Tiles */}
       <section
         aria-label="Attendance permission status summary"
-        className="mt-6 grid grid-cols-1 gap-3.5 sm:grid-cols-3 sm:gap-4"
+        className="mt-6 grid grid-cols-1 min-[360px]:grid-cols-3 gap-2.5 sm:gap-4"
       >
         <StatTile
           count={approvedCount}
@@ -56,7 +56,7 @@ export default function Home({
         />
         <StatTile
           count={pendingCount}
-          label="Waiting for review"
+          label="Waiting"
           filterKey="Pending"
           isActive={statusFilter === "Pending"}
           onSelect={handleTileSelect}

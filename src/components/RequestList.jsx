@@ -86,13 +86,13 @@ export default function RequestList({
               >
                 {/* Desktop Grid Layout (>= 900px) */}
                 <div className="desktop-table-row px-5 py-4 grid-cols-[100px_1.2fr_1.8fr_140px_110px_48px] items-center gap-4">
-                  {/* Date with Weekday */}
+                  {/* Date with Weekday and Periods */}
                   <div>
                     <span className="block font-semibold text-[#1d1a17] dark:text-[#f6efe8]">
                       {r.date}
                     </span>
                     <span className="block text-xs text-[#6f675f] dark:text-[#a79c91]">
-                      {r.day}
+                      {r.day} · {r.periods || 2} periods
                     </span>
                   </div>
 
@@ -206,7 +206,7 @@ export default function RequestList({
 
                   <div className="mt-3 flex items-center justify-between border-t border-[#ece4da]/60 pt-2.5 dark:border-[#33291f]/60">
                     <span className="text-[11px] text-[#6f675f] dark:text-[#a79c91]">
-                      Category: {r.type || "Academic"}
+                      Category: {r.type || "Academic"} &middot; <strong className="text-[#f26a0f]">{r.periods || 2} periods</strong>
                     </span>
                     <button
                       type="button"
@@ -256,9 +256,9 @@ export default function RequestList({
                   </p>
                 </div>
                 <div className="rounded-xl bg-[#fbf8f4] p-3 dark:bg-[#14100d]">
-                  <span className="text-xs text-[#6f675f] dark:text-[#a79c91]">Submitted</span>
+                  <span className="text-xs text-[#6f675f] dark:text-[#a79c91]">Duration</span>
                   <p className="font-semibold text-[#1d1a17] dark:text-[#f6efe8]">
-                    {selectedRequestDetails.ago}
+                    {selectedRequestDetails.periods || 2} periods
                   </p>
                 </div>
               </div>

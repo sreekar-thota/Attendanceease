@@ -138,12 +138,6 @@
   .app-bottom-nav {
     display: none !important;
   }
-  .desktop-nav-header {
-    display: flex !important;
-  }
-  .mobile-brand-header {
-    display: none !important;
-  }
   .desktop-table-header {
     display: grid !important;
   }
@@ -165,12 +159,6 @@
   .app-bottom-nav {
     display: block !important;
   }
-  .desktop-nav-header {
-    display: none !important;
-  }
-  .mobile-brand-header {
-    display: flex !important;
-  }
   .desktop-table-header {
     display: none !important;
   }
@@ -179,6 +167,9 @@
   }
   .mobile-card-row {
     display: block !important;
+  }
+  #main-content {
+    padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
 

@@ -146,6 +146,14 @@ A comprehensive evaluation of the original student interface (`iattendease.verce
 #### 6. Grammatical Polish & Plain Copy
 - **Change**: Fixed the `"3th Sem"` typo to clean, professional `"Semester 3"`. Standardized plain-language labels (*"New request"*).
 
+#### 7. Number of Periods Stepper & Duration Tracking
+- **Change**: Added a required "Number of periods" field (stepper with minus, number, plus; validated 1 to 8 whole periods) to the new request form, displayed across request rows, mobile cards, and history letter slips.
+- **Rationale**: Allows faculty and students to specify the exact class period clearance required rather than ambiguous whole-day absences.
+
+#### 8. Mobile Responsiveness & Layout Hardening
+- **Change**: Restructured the mobile profile card with CSS Grid (`72px minmax(0, 1fr)`) preventing photo/name overlaps, uncapped hero greeting line height (26px font) to avoid clipping, compacted stat tiles into 3 columns on ≥360px (single row ≤64px on 320px), redesigned the request modal as a bottom sheet (max-height 90vh, sticky footer), and added `calc(104px + env(safe-area-inset-bottom))` padding preventing bottom nav clipping.
+- **Rationale**: Eliminates text truncation, eliminates horizontal scrolling (320px to 430px), and ensures full tap target accessibility across all small screens.
+
 ---
 
 ### Design Decisions & System
@@ -206,6 +214,7 @@ A comprehensive evaluation of the original student interface (`iattendease.verce
 
 - The redesign was done without access to the original source code, based on the live site.
 - Data is mocked in `src/data/mock.js`.
+- Periods are front-end only and stored in component/mock state, not saved to a real backend.
 - The student photo loads from `public/student.jpg` with an initials fallback.
 
 ---
@@ -218,15 +227,15 @@ src/
 │   ├── BottomNav.jsx         # Mobile fixed bottom bar with elevated orange '+' action
 │   ├── Footer.jsx            # Copyright, institution details, and policy links
 │   ├── Hero.jsx              # Time-aware greeting, student chips, primary CTA
-│   ├── NewRequestModal.jsx   # Dialog form for Academic/Medical/Event requests
-│   ├── RequestList.jsx       # Responsive table & cards with status pills and actions
+│   ├── NewRequestModal.jsx   # Bottom sheet dialog form with periods stepper & validation
+│   ├── RequestList.jsx       # Responsive table & cards with periods, status pills, and actions
 │   ├── Shortcuts.jsx         # 3 quick-action cards for certificates, roster, HOD
 │   ├── Sidebar.jsx           # Fixed desktop sidebar with badges, logout, SRKR card
-│   ├── StatTile.jsx          # Metric cards for Approved, Pending, Declined
+│   ├── StatTile.jsx          # Compact metric cards for Approved, Waiting, Declined
 │   ├── StatusPill.jsx        # Standardized color + dot + text status pill
 │   └── TopBar.jsx            # Desktop context breadcrumb, helpline, profile, theme toggle
 ├── data/
-│   └── mock.js               # Initial student identity and request records
+│   └── mock.js               # Initial student identity and request records with periods
 ├── pages/
 │   ├── Home.jsx              # Main student dashboard orchestrator
 │   └── PlaceholderPage.jsx   # Route targets for Notifications, History, Certificates, etc.
@@ -259,7 +268,7 @@ src/
 
 ### After: Mobile Redesign (390px - Light Mode)
 ![Redesigned Mobile Interface](docs/after-mobile.png)
-*Figure 4: Mobile viewport showing the raised circular "+" button in the center of the bottom navigation bar, identity chips, and touch-friendly controls.*
+*Figure 4: Mobile viewport showing unclipped hero greeting, grid-aligned profile card (72x88px photo, no overlap), 3-column compact stat tiles, and bottom nav with raised "+" button.*
 
 ---
 
@@ -271,6 +280,19 @@ src/
 
 ### After: Mobile Redesign (390px - Dark Mode)
 ![Redesigned Mobile Interface in Dark Mode](docs/after-dark-mobile.png)
-*Figure 6: Dark mode on mobile showing bottom navigation bar, mobile request cards, and elevated hero card.*
+*Figure 6: Dark mode on mobile showing floating hero card with faint orange border and glow, non-overlapping identity grid, compact 3-column stat tiles, and bottom nav.*
+
+---
+
+### After: Mobile Permission History (390px - Dark Mode)
+![Permission History on Mobile in Dark Mode](docs/after-dark-mobile-history.png)
+*Figure 7: Permission History below 768px showing stacked cards with date, periods badge, subject, details, status pill, and actions without horizontal overflow.*
+
+---
+
+### After: Mobile New Request Bottom Sheet (390px - Dark Mode)
+![New Request Form on Mobile in Dark Mode](docs/after-dark-mobile-modal.png)
+*Figure 8: New permission request bottom sheet featuring the 1-8 periods stepper, 48px touch inputs, and sticky action buttons.*
+
 
 

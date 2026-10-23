@@ -18,6 +18,7 @@ export const INITIAL_REQUESTS = [
     day: "Fri",
     subject: "Internship",
     details: "Bluconn interview",
+    periods: 2,
     status: "Approved",
     ago: "14 days ago",
     type: "Academic",
@@ -28,6 +29,7 @@ export const INITIAL_REQUESTS = [
     day: "Thu",
     subject: "Project development",
     details: "Project development",
+    periods: 3,
     status: "Pending",
     ago: "15 days ago",
     type: "Academic",
@@ -38,6 +40,7 @@ export const INITIAL_REQUESTS = [
     day: "Thu",
     subject: "Project development",
     details: "Project development",
+    periods: 4,
     status: "Pending",
     ago: "15 days ago",
     type: "Academic",
@@ -54,3 +57,22 @@ export const COLLEGE_INFO = {
   hodName: "Dr. K. Suresh Babu",
   hodDesignation: "HOD, Dept of CSD & CSIT",
 };
+
+export const FACULTY_LIST = [
+  { id: "fac-1", name: "Dr. K. Suresh Babu", role: "HOD, Dept of CSD & CSIT" },
+  { id: "fac-2", name: "Prof. P. Ramaswamy", role: "Class Mentor (3rd Sem CSD)" },
+  { id: "fac-3", name: "Dr. M. S. V. S. Bhadri Raju", role: "Academic Counselor" },
+  { id: "fac-4", name: "Prof. G. N. V. Ratna Kumar", role: "Subject Teacher (DBMS)" },
+  { id: "fac-5", name: "Prof. K. Satyanarayana", role: "Lab In-charge & Mentor" },
+];
+
+export const PRESET_REASONS = [
+  "Campus Interview / Placement Drive",
+  "Hackathon / Technical Competition",
+  "Project Development / Lab Session",
+  "Medical Emergency / Doctor Consultation",
+  "Technical Seminar / Workshop",
+  "Family Emergency / Personal Leave",
+  "Sports / Inter-College Event",
+  "Other",
+];

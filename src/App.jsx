@@ -112,7 +112,8 @@ export default function App() {
         {/* Dynamic Route Content */}
         <main
           id="main-content"
-          className="flex-1 px-4 py-6 pb-28 sm:px-6 sm:py-8 min-[900px]:px-8 min-[900px]:pb-12"
+          className="flex-1 px-4 py-6 sm:px-6 sm:py-8 min-[900px]:px-8 min-[900px]:pb-12"
+          style={{ paddingBottom: "calc(104px + env(safe-area-inset-bottom, 0px))" }}
         >
           <Routes>
             <Route
