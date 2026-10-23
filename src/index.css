@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
+  --breakpoint-desktop: 900px;
+}
+
+:root {
+  --color-canvas: #fbf8f4;
+  --color-surface: #ffffff;
+  --color-surface-hover: #fcfaf7;
+  --color-surface-subtle: #f5efe7;
+  --color-border: #ece4da;
+  --color-border-hover: #dfd4c5;
+  --color-ink: #1d1a17;
+  --color-muted: #6f675f;
+  --color-subtle: #968c82;
+  --color-accent: #f26a0f;
+  --color-accent-hover: #e05e07;
+  --color-accent-soft: #fff5eb;
+  --color-hero: #241a12;
+  --color-hero-text: #fff4ea;
+  --color-hero-muted: #e8cdb6;
+
+  /* Status Colors */
+  --color-approved-bg: #ecfdf5;
+  --color-approved-text: #065f46;
+  --color-approved-border: #a7f3d0;
+  --color-approved-dot: #10b981;
+
+  --color-pending-bg: #fffbeb;
+  --color-pending-text: #92400e;
+  --color-pending-border: #fde68a;
+  --color-pending-dot: #f59e0b;
+
+  --color-declined-bg: #fff1f2;
+  --color-declined-text: #9f1239;
+  --color-declined-border: #fecdd3;
+  --color-declined-dot: #f43f5e;
+}
+
+.dark {
+  --color-canvas: #14100d;
+  --color-surface: #1e1914;
+  --color-surface-hover: #26201b;
+  --color-surface-subtle: #2a231c;
+  --color-border: #33291f;
+  --color-border-hover: #483a2d;
+  --color-ink: #f6efe8;
+  --color-muted: #a79c91;
+  --color-subtle: #80756b;
+  --color-accent: #f26a0f;
+  --color-accent-hover: #e05e07;
+  --color-accent-soft: #2d1d12;
+  --color-hero: #241a12;
+  --color-hero-text: #fff4ea;
+  --color-hero-muted: #e8cdb6;
+
+  /* Status Colors (High Contrast WCAG AA in Dark Mode) */
+  --color-approved-bg: rgba(6, 78, 59, 0.45);
+  --color-approved-text: #6ee7b7;
+  --color-approved-border: rgba(16, 185, 129, 0.45);
+  --color-approved-dot: #34d399;
+
+  --color-pending-bg: rgba(120, 53, 15, 0.45);
+  --color-pending-text: #fcd34d;
+  --color-pending-border: rgba(245, 158, 11, 0.45);
+  --color-pending-dot: #fbbf24;
+
+  --color-declined-bg: rgba(136, 19, 55, 0.45);
+  --color-declined-text: #fda4af;
+  --color-declined-border: rgba(244, 63, 94, 0.45);
+  --color-declined-dot: #fb7185;
+}
+
+/* Dark mode polish for hero card */
+.dark .hero-card-theme {
+  background: linear-gradient(135deg, #3a2616 0%, #2a1b10 100%) !important;
+  border: 1px solid rgba(242, 106, 15, 0.28) !important;
+  box-shadow: 0 10px 40px -12px rgba(242, 106, 15, 0.25) !important;
+}
+
+.dark .hero-student-card {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Explicit 900px Responsive Breakpoint Utilities */
+@media (min-width: 900px) {
+  .app-sidebar {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 16rem;
+    z-index: 30;
+  }
+  .app-content-wrapper {
+    padding-left: 16rem !important;
+  }
+  .app-bottom-nav {
+    display: none !important;
+  }
+  .desktop-nav-header {
+    display: flex !important;
+  }
+  .mobile-brand-header {
+    display: none !important;
+  }
+  .desktop-table-header {
+    display: grid !important;
+  }
+  .desktop-table-row {
+    display: grid !important;
+  }
+  .mobile-card-row {
+    display: none !important;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .app-sidebar {
+    display: none !important;
+  }
+  .app-content-wrapper {
+    padding-left: 0 !important;
+  }
+  .app-bottom-nav {
+    display: block !important;
+  }
+  .desktop-nav-header {
+    display: none !important;
+  }
+  .mobile-brand-header {
+    display: flex !important;
+  }
+  .desktop-table-header {
+    display: none !important;
+  }
+  .desktop-table-row {
+    display: none !important;
+  }
+  .mobile-card-row {
+    display: block !important;
+  }
+}
+
+/* Hero Entrance Animation */
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-animate {
+  animation: heroEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
